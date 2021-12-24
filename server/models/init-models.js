@@ -1,20 +1,43 @@
 import Sequelize from 'sequelize';
-import config from '../../config/config'
+import configdb from '../../config/config-db'
 
 const sequelize = new Sequelize(
-  config.db_name,
-  config.db_username,
-  config.db_password,
+  configdb.datbase,
+  configdb.username,
+  configdb.password,
   {
-    dialect : "postgres",
+    host: configdb.host,
+    dialect : configdb.dialect,
+    operatorAliases: false,
+    dialectOptions:{
+      ssl:{
+        require: true,
+        rejectUnauthorized: false
+      }
+    },
     pool : {
-      max : 5,
-      min : 0,
-      acquire : 30000,
-      idle : 10000
+      max : configdb.pool.max,
+      min : configdb.pool.min,
+      acquire : configdb.pool.acquire,
+      idle : configdb.pool.idle
     }
   }
 );
+
+// const sequelize = new Sequelize(
+//   config.db_name,
+//   config.db_username,
+//   config.db_password,
+//   {
+//     dialect : "postgres",
+//     pool : {
+//       max : 5,
+//       min : 0,
+//       acquire : 30000,
+//       idle : 10000
+//     }
+//   }
+// );
 
 
 const DataTypes = require("sequelize").DataTypes;

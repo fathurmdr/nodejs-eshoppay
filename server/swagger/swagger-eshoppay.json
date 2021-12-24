@@ -1,16 +1,16 @@
 {
     "swagger": "2.0",
     "info": {
-        "title": "HR Fullstack",
+        "title": "E-Shoppay Fullstack",
         "description": "",
         "version": "1.0"
     },
     "host": "localhost:3001",
-    "basePath": "/hr/api",
+    "basePath": "/eshoppay/api",
     "tags": [
         {
-            "name": "hr",
-            "description": "HR-Fullstack CodeId Academy",
+            "name": "eshoppay",
+            "description": "eshoppay-Fullstack CodeId Academy",
             "externalDocs": {
                 "description": "Find out more",
                 "url": "http://swagger.io"
@@ -22,14 +22,14 @@
         "https"
     ],
     "paths": {
-        "/regions/": {
+        "/category/": {
             "post": {
                 "tags": [
-                    "region"
+                    "category"
                 ],
-                "summary": "Add a new region",
+                "summary": "Add a new category",
                 "description": "",
-                "operationId": "addRegion",
+                "operationId": "addcategory",
                 "consumes": [
                     "application/json"
                 ],
@@ -40,7 +40,7 @@
                     {
                         "in": "body",
                         "name": "body",
-                        "description": "Region object create to db",
+                        "description": "category object create to db",
                         "required": true
                         
                     }
@@ -53,11 +53,11 @@
             },
             "get": {
                 "tags": [
-                    "region"
+                    "category"
                 ],
-                "summary": "Finds Region",
-                "description": "Display all regions",
-                "operationId": "Find all regions",
+                "summary": "Finds category",
+                "description": "Display all category",
+                "operationId": "Find all category",
                 "produces": [
                     "application/json"
                 ],
@@ -75,14 +75,14 @@
                 }
             }
         },
-        "/regions/{id}": {
+        "/category/{id}": {
             "put": {
                 "tags": [
-                    "region"
+                    "category"
                 ],
-                "summary": "Update an existing region",
+                "summary": "Update an existing category",
                 "description": "",
-                "operationId": "updateRegion",
+                "operationId": "updatecategory",
                 "consumes": [
                     "application/json"
                 ],
@@ -93,17 +93,17 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Update Regions ",
+                        "description": "Update categorys ",
                         "required": true,
                         "type": "string"
                       },
                     {
                         "in": "body",
                         "name": "body",
-                        "description": "Region object create to db",
+                        "description": "category object create to db",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/Region"
+                            "$ref": "#/definitions/category"
                         }
                     }
                 ],
@@ -112,7 +112,7 @@
                         "description": "Invalid ID supplied"
                     },
                     "404": {
-                        "description": "Region not found"
+                        "description": "category not found"
                     },
                     "405": {
                         "description": "Validation exception"
@@ -121,11 +121,11 @@
             },
             "get": {
                 "tags": [
-                    "region"
+                    "category"
                 ],
-                "summary": "find an existing region",
+                "summary": "find an existing category",
                 "description": "",
-                "operationId": "updateRegion",
+                "operationId": "updatecategory",
                 "consumes": [
                     "application/json"
                 ],
@@ -136,17 +136,17 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Find Regions ",
+                        "description": "Find category ",
                         "required": true,
                         "type": "integer"
                       }
                 ],
                 "responses": {
                     "400": {
-                        "description": "Invalid Region id"
+                        "description": "Invalid category id"
                     },
                     "404": {
-                        "description": "Region not found"
+                        "description": "category not found"
                     },
                     "405": {
                         "description": "Validation exception"
@@ -155,11 +155,11 @@
             },
             "delete": {
                 "tags": [
-                    "region"
+                    "category"
                 ],
-                "summary": "delete an existing region",
+                "summary": "delete an existing category",
                 "description": "",
-                "operationId": "updateRegion",
+                "operationId": "updatecategory",
                 "consumes": [
                     "application/json"
                 ],
@@ -170,7 +170,7 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Delete Regions ",
+                        "description": "Delete category ",
                         "required": true,
                         "type": "integer"
                       }
@@ -180,7 +180,7 @@
                         "description": "Invalid ID supplied"
                     },
                     "404": {
-                        "description": "Region not found"
+                        "description": "category not found"
                     },
                     "405": {
                         "description": "Validation exception"

@@ -6,7 +6,7 @@ const create = async (req,res)=>{
     try {
         const result = await req.context.models.product_images.create({
             prim_filename : files[0].file.newFilename,
-            prim_filesize : parseInt(fields[8].value),
+            prim_filesize : fields[8].value,
             prim_filetype : fields[9].value,
             prim_primary : fields[10].value === 'true',
             prim_prod_id : productId,
