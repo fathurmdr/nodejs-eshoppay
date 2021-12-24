@@ -1,0 +1,192 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "HR Fullstack",
+        "description": "",
+        "version": "1.0"
+    },
+    "host": "localhost:3001",
+    "basePath": "/hr/api",
+    "tags": [
+        {
+            "name": "hr",
+            "description": "HR-Fullstack CodeId Academy",
+            "externalDocs": {
+                "description": "Find out more",
+                "url": "http://swagger.io"
+            }
+        }
+    ],
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "paths": {
+        "/regions/": {
+            "post": {
+                "tags": [
+                    "region"
+                ],
+                "summary": "Add a new region",
+                "description": "",
+                "operationId": "addRegion",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Region object create to db",
+                        "required": true
+                        
+                    }
+                ],
+                "responses": {
+                    "405": {
+                        "description": "Invalid input"
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "region"
+                ],
+                "summary": "Finds Region",
+                "description": "Display all regions",
+                "operationId": "Find all regions",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid status value"
+                    }
+                }
+            }
+        },
+        "/regions/{id}": {
+            "put": {
+                "tags": [
+                    "region"
+                ],
+                "summary": "Update an existing region",
+                "description": "",
+                "operationId": "updateRegion",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Update Regions ",
+                        "required": true,
+                        "type": "string"
+                      },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Region object create to db",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Region"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "Region not found"
+                    },
+                    "405": {
+                        "description": "Validation exception"
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "region"
+                ],
+                "summary": "find an existing region",
+                "description": "",
+                "operationId": "updateRegion",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Find Regions ",
+                        "required": true,
+                        "type": "integer"
+                      }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Invalid Region id"
+                    },
+                    "404": {
+                        "description": "Region not found"
+                    },
+                    "405": {
+                        "description": "Validation exception"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "region"
+                ],
+                "summary": "delete an existing region",
+                "description": "",
+                "operationId": "updateRegion",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Delete Regions ",
+                        "required": true,
+                        "type": "integer"
+                      }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "Region not found"
+                    },
+                    "405": {
+                        "description": "Validation exception"
+                    }
+                }
+            }
+        } 
+    }
+}
