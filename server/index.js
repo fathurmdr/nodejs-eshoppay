@@ -35,6 +35,7 @@ app.use(async (req,res,next) =>{
 app.use(process.env.URL_API+"/category",routes.CateRoute)
 app.use(process.env.URL_API+"/auth",routes.AuthRoute)
 app.use(process.env.URL_API+"/product",routes.ProductRoute)
+app.use(process.env.URL_API+"/order",routes.OrderRoute)
 
 app.use("/api/docs",swaggerUi.serve,swaggerUi.setup(swaggerDocument))
 

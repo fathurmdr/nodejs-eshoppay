@@ -59,32 +59,10 @@ const update = async (req,res)=>{
     }
 }
 
-const create1 = async (req,res)=>{
-    const {files,fields} = req.fileAttrb
-    try {
-        const result = await req.context.models.products.create({
-            first_name : fields[0].value,
-            last_name : fields[1].value,
-            email : fields[2].value,
-            phone_number : fields[3].value,
-            hire_date : new Date(),
-            job_id : parseInt(fields[4].value),
-            salary : fields[5].value,
-            manager_id : parseInt(fields[6].value),
-            department_id : parseInt(fields[7].value),
-            profile:files[0].file.newFilename,
-            fields:files[1].file.newFilename
-        })
-        return res.send(result)
-    } catch (error) {
-        return res.status(404).send("no data input")
-    }
-}
-
 const deleteRow = async (req,res) =>{
     try {
         const result = await req.context.models.products.destroy({
-            where:{employee_id: req.params.id}
+            where:{prod_id: req.params.id}
         })
        return res.send("delete"+result+"rows")
     } catch (error) {
@@ -97,6 +75,5 @@ export default {
     findOne,
     create,
     update,
-    create1,
     deleteRow,
 }
