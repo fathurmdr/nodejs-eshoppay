@@ -1,12 +1,23 @@
 import { Router } from "express";
-import IndexController from "../controllers/IndexController";
+import IndexController from "../controllers/IndexController"
+import authJWT from "../helpers/authJWT";
+
 
 const router = Router();
 
-router.get("/",IndexController.CategoryController.findAll)
-router.get("/:id", IndexController.CategoryController.findOne)
-router.post("/",IndexController.CategoryController.create)
-router.put("/:id",IndexController.CategoryController.update)
-router.delete("/:id",IndexController.CategoryController.deleteRow)
+router.get("/rawSQL",IndexController.CategoryCtrl.findCategoryBySQL);
+router.get("/",IndexController.CategoryCtrl.findAllRows);
+router.get("/detail",IndexController.CategoryCtrl.categoryProduct);
+
+router.get("/:id",IndexController.CategoryCtrl.findRowById);
+
+
+
+// method post
+router.post("/",IndexController.CategoryCtrl.createRow);
+// put
+router.put("/:id",IndexController.CategoryCtrl.updateRow);
+// delete
+router.delete("/:id",IndexController.CategoryCtrl.deleteRow);
 
 export default router;

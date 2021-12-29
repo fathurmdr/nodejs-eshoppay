@@ -1,10 +1,12 @@
 import { Router } from "express";
-import authJWT from "../middleware/authJWT";
+import authJWT from "../helpers/authJWT";
 import IndexController from "../controllers/IndexController";
 
 const router = Router();
 
 router.post("/signin",authJWT.authenticate,authJWT.login);
-router.post("/signup",IndexController.UserController.signup);
+
+router.post("/signup",IndexController.UsersCtrl.signup);
+//router.post("/refreshtoken",authJWT.refreshToken)
 
 export default router;

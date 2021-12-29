@@ -1,13 +1,15 @@
-import CategoryController from './CategoryController'
-import UserController from './UserController'
-import ProductController from './ProductController'
-import PrimController from './PrimController'
-import OrderController from './OrderController'
+import CategoryCtrl from "./CategoryController"
+import ProductCtrl from './ProductController'
+import ProductImageCtrl from "./ProductImageController"
+import UsersCtrl from "./UserController"
+import CartCtrl from './CartController'
+import OrderCtrl from './OrderController'
 
 export default {
-    CategoryController,
-    UserController,
-    ProductController,
-    PrimController,
-    OrderController
+    CategoryCtrl,
+    ProductCtrl,
+    ProductImageCtrl,
+    UsersCtrl,
+    CartCtrl,
+    OrderCtrl
 }

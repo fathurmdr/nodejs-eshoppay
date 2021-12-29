@@ -1,13 +1,16 @@
-const Sequelize = require('sequelize');
-module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('orders', {
+import _sequelize from 'sequelize';
+const { Model, Sequelize } = _sequelize;
+
+export default class orders extends Model {
+  static init(sequelize, DataTypes) {
+  super.init({
     order_name: {
       type: DataTypes.STRING(25),
       allowNull: false,
       primaryKey: true
     },
-    order_creation: {
-      type: DataTypes.DATEONLY,
+    order_created_on: {
+      type: DataTypes.DATE,
       allowNull: true
     },
     order_total_qty: {
@@ -30,16 +33,16 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DECIMAL,
       allowNull: true
     },
-    order_address: {
-      type: DataTypes.STRING(500),
-      allowNull: true
-    },
-    order_phone: {
-      type: DataTypes.STRING(15),
+    order_payt_trx_number: {
+      type: DataTypes.STRING(100),
       allowNull: true
     },
     order_city: {
-      type: DataTypes.STRING(20),
+      type: DataTypes.STRING(15),
+      allowNull: true
+    },
+    order_address: {
+      type: DataTypes.STRING(500),
       allowNull: true
     },
     order_status: {
@@ -61,7 +64,7 @@ module.exports = function(sequelize, DataTypes) {
     timestamps: false,
     indexes: [
       {
-        name: "orders_pkey",
+        name: "order_name_pk",
         unique: true,
         fields: [
           { name: "order_name" },
@@ -69,4 +72,6 @@ module.exports = function(sequelize, DataTypes) {
       },
     ]
   });
-};
+  return orders;
+  }
+}

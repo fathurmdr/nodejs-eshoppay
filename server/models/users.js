@@ -1,6 +1,9 @@
-const Sequelize = require('sequelize');
-module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('users', {
+import _sequelize from 'sequelize';
+const { Model, Sequelize } = _sequelize;
+
+export default class users extends Model {
+  static init(sequelize, DataTypes) {
+  super.init({
     user_id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
@@ -8,15 +11,7 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true
     },
     user_name: {
-      type: DataTypes.STRING(25),
-      allowNull: true
-    },
-    user_firstname: {
-      type: DataTypes.STRING(15),
-      allowNull: true
-    },
-    user_lastname: {
-      type: DataTypes.STRING(15),
+      type: DataTypes.STRING(20),
       allowNull: true
     },
     user_email: {
@@ -24,11 +19,23 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     user_password: {
-      type: DataTypes.STRING(225),
+      type: DataTypes.STRING(255),
       allowNull: true
     },
-    user_phone: {
-      type: DataTypes.STRING(15),
+    user_birthdate: {
+      type: DataTypes.DATEONLY,
+      allowNull: true
+    },
+    user_gender: {
+      type: DataTypes.STRING(6),
+      allowNull: true
+    },
+    user_avatar: {
+      type: DataTypes.STRING(255),
+      allowNull: true
+    },
+    user_type: {
+      type: DataTypes.STRING(10),
       allowNull: true
     }
   }, {
@@ -38,7 +45,7 @@ module.exports = function(sequelize, DataTypes) {
     timestamps: false,
     indexes: [
       {
-        name: "users_pkey",
+        name: "user_id_pk",
         unique: true,
         fields: [
           { name: "user_id" },
@@ -46,4 +53,6 @@ module.exports = function(sequelize, DataTypes) {
       },
     ]
   });
-};
+  return users;
+  }
+}

@@ -1,88 +1,43 @@
-const findAll = async (req, res) => {
-    try {
-        const result = await req.context.models.orders.findAll();
-        return res.send(result);
-    } catch (error) {
-        return res.status(404).send("no data found");
-    }
-}
+import { sequelize } from "../models/init-models"
 
-const findOne = async (req,res) => {
+const getOrderNumber = async (req,res,next)=>{
     try {
-        const result = await req.context.models.orders.findOne({
-            where:{order_name:req.params.id}
+        const result = await sequelize.query("select 'ORD-'||to_char(now(),'DDMMYYY')||lpad(nextval('order_name_seq')||'',4,'0') as ordername",
+        {
+            type : sequelize.QueryTypes.SELECT
         })
-        return res.send(result)
+        req.orderName = result[0].ordername;
+        next();
     } catch (error) {
-        return res.status(404).send("no data found")
+        res.status(404).json({message : error.message})
     }
 }
 
-const create = async (req,res)=>{
-    const { order_name,order_total_qty,order_subtotal,order_discount,order_tax,order_address,order_phone,order_city,order_status,order_user_id } = req.body;
-    
-    const order_total_due = order_subtotal*(1-parseFloat(order_discount))*(1+parseFloat(order_tax));
+const createOrder = async (req,res)=>{
+    const {summary} = req.summaryCart;
+    const {order_discount,order_tax,order_city,order_address,order_status,order_user_id} = req.body;
     
     try {
         const result = await req.context.models.orders.create({
-            order_name :order_name,
-            order_creation :new Date(),
-            order_total_qty :order_total_qty,
-            order_subtotal :order_subtotal,
-            order_discount :order_discount,
-            order_tax :order_tax,
-            order_total_due :order_total_due,
-            order_address :order_address,
-            order_phone :order_phone,
-            order_city :order_city,
-            order_status :order_status,
-            order_user_id :order_user_id,
-        });
+            order_name : req.orderName,
+            order_created_on : new Date(),
+            order_total_qty : summary.totalQty,
+            order_subtotal : summary.subTotal,
+            order_discount : order_discount,
+            order_tax : order_tax,
+            order_city : order_city,
+            order_address : order_address,
+            order_status : order_status,
+            order_total_due : summary.subTotal,
+            order_user_id : parseInt(order_user_id)
+        })    
         res.send(result)
     } catch (error) {
-        return res.status(404).send("no data input")
-    }
-}
-
-const update = async (req,res)=>{
-    try {
-        const result = await req.context.models.orders.update({
-            order_name :order_name,
-            order_creation :new Date(),
-            order_total_qty :order_total_qty,
-            order_subtotal :order_subtotal,
-            order_discount :order_discount,
-            order_tax :order_tax,
-            order_total_due :order_total_due,
-            order_address :order_address,
-            order_phone :order_phone,
-            order_city :order_city,
-            order_status :order_status,
-            order_user_id :order_user_id,
-        },{
-            returning : true, where:{order_name:req.params.id}
-        })
-        return res.send(result)
-    } catch (error) {
-        return res.status(404).send("no data update")
-    }
-}
-
-const deleteRow = async (req,res) =>{
-    try {
-        const result = await req.context.models.orders.destroy({
-            where:{order_name: req.params.id}
-        })
-       return res.send("delete"+result+"rows")
-    } catch (error) {
-        return res.status(404).send("no data found")
-    }
+        res.status(404).json({message : error.message})
+    }   
 }
 
 export default {
-    findAll,
-    findOne,
-    create,
-    update,
-    deleteRow,
+    getOrderNumber,
+    createOrder
 }

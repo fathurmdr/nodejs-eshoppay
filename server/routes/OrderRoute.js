@@ -3,10 +3,11 @@ import IndexController from "../controllers/IndexController";
 
 const router = Router();
 
-router.get("/",IndexController.OrderController.findAll)
-router.get("/:id", IndexController.OrderController.findOne)
-router.post("/",IndexController.OrderController.create)
-router.put("/:id",IndexController.OrderController.update)
-router.delete("/:id",IndexController.OrderController.deleteRow)
+// method post
+router.post("/createOrder",
+    IndexController.CartCtrl.summaryCart,
+    IndexController.OrderCtrl.getOrderNumber,
+    IndexController.OrderCtrl.createOrder);
+
 
 export default router;

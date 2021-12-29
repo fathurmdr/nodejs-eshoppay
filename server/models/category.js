@@ -1,6 +1,9 @@
-const Sequelize = require('sequelize');
-module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('category', {
+import _sequelize from 'sequelize';
+const { Model, Sequelize } = _sequelize;
+
+export default class category extends Model {
+  static init(sequelize, DataTypes) {
+  super.init({
     cate_id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
@@ -8,9 +11,8 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true
     },
     cate_name: {
-      type: DataTypes.STRING(100),
-      allowNull: true,
-      unique: "category_cate_name_key"
+      type: DataTypes.STRING(25),
+      allowNull: true
     }
   }, {
     sequelize,
@@ -19,14 +21,7 @@ module.exports = function(sequelize, DataTypes) {
     timestamps: false,
     indexes: [
       {
-        name: "category_cate_name_key",
-        unique: true,
-        fields: [
-          { name: "cate_name" },
-        ]
-      },
-      {
-        name: "category_pkey",
+        name: "cate_id_pk",
         unique: true,
         fields: [
           { name: "cate_id" },
@@ -34,4 +29,6 @@ module.exports = function(sequelize, DataTypes) {
       },
     ]
   });
-};
+  return category;
+  }
+}
