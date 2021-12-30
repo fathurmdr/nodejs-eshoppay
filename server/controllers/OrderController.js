@@ -13,7 +13,7 @@ const getOrderNumber = async (req,res,next)=>{
     }
 }
 
-const createOrder = async (req,res)=>{
+const createOrder = async (req,res,next)=>{
     const {summary} = req.summaryCart;
     const {order_discount,order_tax,order_city,order_address,order_status,order_user_id} = req.body;
     
@@ -31,13 +31,41 @@ const createOrder = async (req,res)=>{
             order_total_due : summary.subTotal,
             order_user_id : parseInt(order_user_id)
         })    
-        res.send(result)
+        next();
     } catch (error) {
         res.status(404).json({message : error.message})
     }   
 }
 
+const updateStock = async (req,res,next)=>{
+    const Prod = req.Prod;
+    try {
+        for (let i = 0; i < Prod.length; i++) {
+            let result = await req.context.models.products.findOne({
+                where : {prod_id : Prod[i].prod_id}
+            });
+            try {
+                console.log();
+                await req.context.models.products.update(
+                    {
+                        prod_stock: result.dataValues.prod_stock - Prod[i].qty
+                    },
+                    { returning: true, where: {prod_id: Prod[i].prod_id} }
+                );
+            } catch (error) {
+                res.status(404).json({ message: error.message })
+            }
+            
+        }
+        next()
+    } catch (error) {
+        res.status(404).json({ message: error.message })
+    }
+}
+
+
 export default {
     getOrderNumber,
-    createOrder
+    createOrder,
+    updateStock
 }
