@@ -14,22 +14,22 @@ import _users from  "./users.js";
 import config from '../config/config'
 import configdb from '../config/config-heroku'
 
-const sequelize = new Sequelize(
-  config.db_name,
-  config.db_username,
-  config.db_password,
-  {
-    dialect : "postgres",
-    pool : {
-      max : 5,
-      min : 0,
-      acquire :30000,
-      idle : 10000
-    }
-  }
-)
+// const sequelize = new Sequelize(
+//   config.db_name,
+//   config.db_username,
+//   config.db_password,
+//   {
+//     dialect : "postgres",
+//     pool : {
+//       max : 5,
+//       min : 0,
+//       acquire :30000,
+//       idle : 10000
+//     }
+//   }
+// )
 
-/* const sequelize = new Sequelize(configdb.database, configdb.username, configdb.password, {
+const sequelize = new Sequelize(configdb.database, configdb.username, configdb.password, {
   host: configdb.host,
   dialect: configdb.dialect,
   operatorsAliases: false,
@@ -45,7 +45,7 @@ const sequelize = new Sequelize(
     acquire: configdb.pool.acquire,
     idle: configdb.pool.idle
   }
-}); */
+});
 
 
 const initModels=(sequelize)=> {
